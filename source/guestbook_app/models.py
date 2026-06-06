@@ -8,12 +8,12 @@ STATUS_CHOICES = [
 
 
 class Entry(models.Model):
-    name = models.Charfield(max_length=200, null=False, blank=False, verbose_name='Имя автора')
-    email = models.EmailField(null=false, blank=false, verbose_name='Почта автора')
-    text = models.TextField(null=false, blank=false, verbose_name='Текст записи')
+    name = models.CharField(max_length=200, null=False, blank=False, verbose_name='Имя автора')
+    email = models.EmailField(null=False, blank=False, verbose_name='Почта автора')
+    text = models.TextField(null=False, blank=False, verbose_name='Текст записи')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Время создания')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Время редактирования')
-    status = models.Charfield(
+    status = models.CharField(
         max_length=10,
         choices=STATUS_CHOICES,
         default='active',
@@ -27,3 +27,4 @@ class Entry(models.Model):
         db_table = 'entry'
         verbose_name = 'Запись'
         verbose_name_plural = 'Записи'
+        ordering = ['-created_at']

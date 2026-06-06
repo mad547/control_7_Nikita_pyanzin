@@ -1,5 +1,3 @@
-import email
-
 from django.shortcuts import render, redirect, get_object_or_404
 from guestbook_app.models import Entry
 from guestbook_app.forms import EntryForm
