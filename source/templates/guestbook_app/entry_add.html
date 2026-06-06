@@ -1,10 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% block content %}
+<div class="card shadow-sm my-4" style="max-width: 600px; margin: auto;">
+    <div class="card-header fs-5 text-center py-3">Добавить запись</div>
+    <div class="card-body">
+        <form id="entry-form" action="" method="POST">
+            {% include 'partial/entry_form.html' %}
+        </form>
+    </div>
+    <div class="card-footer d-flex justify-content-between py-3">
+        <a href="{% url 'entry_list' %}" class="btn btn-outline-secondary btn-sm">Отмена</a>
+        <button type="submit" form="entry-form" class="btn btn-primary btn-sm">Добавить</button>
+    </div>
+</div>
+{% endblock %}
