@@ -1,3 +1,5 @@
+import email
+
 from django.shortcuts import render, redirect, get_object_or_404
 from guestbook_app.models import Entry
 from guestbook_app.forms import EntryForm
@@ -32,3 +34,18 @@ def entry_edit(request, entry_id):
             form.save()
             return redirect('entry_list')
         return render(request, 'guestbook_app/entry_edit.html', {'form': form, 'entry': entry})
+
+
+def entry_delete(request, entry_id):
+    entry = get_object_or_404(Entry, id=entry_id)
+    if request.method == 'GET':
+        return render(request, 'guestbook_app/entry_delete.html', {'entry': entry})
+    elif request.method == 'POST':
+        email = request.POST.get('email', '').strip()
+        if email == entry.email:
+            entry.delete()
+            return redirect('entry_list')
+        return render(request, 'guestbook_app/entry_delete.html', {
+            'entry': entry,
+            'error': 'Неверный email. Запись не удалена.'
+        })
