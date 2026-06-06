@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="card shadow-sm my-4 style=max-widht: 500px; margin: auto;">
+    <div class="card-header fs-5 text-center py-3 text-danger">Удаление записи</div>
+    <div class="card-body">
+        <p class="fw-bold fs-5">{{ entry.name }} ({{ entry.email }})</p>
+        <p class="text-muted">{{ entry.text|truncatechars:100 }}</p>
+        <hr>
+        <p>Для подтверждения удаления введите email автора записи</p>
+
+        {% if error %}
+            <div class="alert alert-danger py-2">{{ error }}</div>
+        {% endif %}
+
+        <form id="delete-form" action="" method="POST">
+            {% csrf_token %}
+            <div class="mb-3">
+                <input type="email" name="email" class="form-control"
+                        placeholder="Email автора" required>">
+            </div>
+        </form>
+    </div>
+    <div class="card-footer d-flex justify-content-between py-3">
+        <a href="{% url 'entry_list' %}" class="btn btn-outline-secondary btn-sm">Отмена</a>
+        <button type="submit" form="delete-form" class="btn btn-danger btn-sm">Удалить</button>
+    </div>
+</div>
+{% endblock %}
